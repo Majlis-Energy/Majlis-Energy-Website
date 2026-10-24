@@ -1,48 +1,10 @@
-<!doctype html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page not found | Majlis Energy</title>
-  <meta name="description" content="The page you were looking for could not be found.">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0a0a0a">
-  <link rel="icon" href="/assets/images/logo-mark.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap">
-  <link rel="stylesheet" href="/assets/css/styles.css">
-  <script>document.documentElement.classList.add('js');</script>
-  <script src="/assets/js/main.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="/index.html" aria-label="Majlis Energy home">
-        <img src="/assets/images/logo-mark.png" width="99" height="61" alt="">
-        <span class="brand-name">Majlis <span>Energy</span></span>
-      </a>
-      <nav id="main-navigation" class="site-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="/about.html">Who We Are</a></li>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/index.html#projects">Projects</a></li>
-          <li><a href="/team.html">Team</a></li>
-          <li><a href="/insights.html">Insights</a></li>
-        </ul>
-        <a class="nav-cta" href="/index.html#contact">Contact Us</a>
-        <p class="menu-meta">Enquiries: <a href="mailto:info@majlisenergy.com">info@majlisenergy.com</a></p>
-      </nav>
-      <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" hidden>
-        <span class="menu-toggle-label">Menu</span>
-        <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
-      </button>
-    </div>
-  </header>
-
-  <main id="main" tabindex="-1">
+---
+layout: default
+title: "Page not found | Majlis Energy"
+description: "The page you were looking for could not be found."
+permalink: /404.html
+noindex: true
+---
     <section class="hero not-found" aria-labelledby="page-title">
       <canvas class="hero-canvas" aria-hidden="true" data-lines="22"></canvas>
       <div class="container">
@@ -50,50 +12,8 @@
         <h1 id="page-title">This page could not be <em>found.</em></h1>
         <p class="hero-subtitle">The address may have changed. Use the links below to continue.</p>
         <div class="actions on-dark">
-          <a class="button" href="/index.html">Go to the homepage</a>
-          <a class="button ghost" href="/insights.html">Browse insights</a>
+          <a class="button" href="{{ '/index.html' | relative_url }}">Go to the homepage</a>
+          <a class="button ghost" href="{{ '/insights.html' | relative_url }}">Browse insights</a>
         </div>
       </div>
     </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a class="brand" href="/index.html" aria-label="Majlis Energy home"><img src="/assets/images/logo-mark.png" width="99" height="61" alt=""><span class="brand-name">Majlis <span>Energy</span></span></a>
-          <p class="footer-statement">Independent expertise. From feasibility to operations.</p>
-        </div>
-        <div class="footer-col">
-          <h2>Company</h2>
-          <ul>
-            <li><a href="/about.html">Who We Are</a></li>
-            <li><a href="/team.html">Team</a></li>
-            <li><a href="/index.html#projects">Projects</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Expertise</h2>
-          <ul>
-            <li><a href="/services.html">Services</a></li>
-            <li><a href="/insights.html">Insights</a></li>
-            <li><a href="/index.html#how-we-work">How We Work</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h2>Contact</h2>
-          <ul>
-            <li><a href="mailto:info@majlisenergy.com">info@majlisenergy.com</a></li>
-            <li><a href="https://www.linkedin.com/company/majlis-energy" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in new tab)</span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Majlis Energy Limited · Company no. 11404129</p>
-        <a href="#main">Back to top <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 20V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>

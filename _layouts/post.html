@@ -1,0 +1,61 @@
+---
+layout: default
+---
+{%- assign words = content | number_of_words -%}
+{%- assign minutes = words | divided_by: 220 | at_least: 1 -%}
+{%- capture asset_prefix %}src="{{ site.baseurl }}/assets/{% endcapture -%}
+    <section class="hero hero-page hero-post" aria-labelledby="page-title">
+      <canvas class="hero-canvas" aria-hidden="true" data-lines="22"></canvas>
+      <div class="container">
+        <a class="back-link" href="{{ '/insights.html' | relative_url }}">{% include icon-arrow.html %}All insights</a>
+        <p class="eyebrow" data-reveal>{{ page.topic }}</p>
+        <h1 id="page-title" data-reveal style="--delay:.08s">{{ page.title }}</h1>
+        {%- if page.summary %}
+        <p class="hero-intro" data-reveal style="--delay:.16s">{{ page.summary }}</p>
+        {%- endif %}
+        <ul class="post-meta" data-reveal style="--delay:.24s">
+          <li><span class="label">Author</span>{{ page.author }}</li>
+          <li><span class="label">Published</span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></li>
+          <li><span class="label">Reading time</span>{{ minutes }} min</li>
+        </ul>
+      </div>
+    </section>
+
+    <article class="section post" aria-labelledby="page-title">
+      <div class="container post-grid">
+        <aside class="post-aside">
+          {%- if page.pdf %}
+          <a class="cta" href="{{ page.pdf | relative_url }}" target="_blank" rel="noopener noreferrer"><span class="cta-label">Download PDF<span class="visually-hidden"> of {{ page.title }} (opens in new tab)</span></span><span class="cta-icon" aria-hidden="true">{% include icon-external.html %}</span></a>
+          {%- endif %}
+          <a class="cta" href="{{ '/index.html#contact' | relative_url }}"><span class="cta-label">Discuss a project</span><span class="cta-icon" aria-hidden="true">{% include icon-arrow.html %}</span></a>
+        </aside>
+        <div class="prose">
+          {%- if page.image %}
+          <figure class="post-cover">
+            <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | escape }}">
+          </figure>
+          {%- endif %}
+{{ content | replace: 'src="/assets/', asset_prefix }}
+        </div>
+      </div>
+    </article>
+
+    {%- assign others = site.posts | where_exp: "p", "p.url != page.url" %}
+    {%- if others.size > 0 %}
+    <section class="section paper" aria-labelledby="more-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">More insights</p>
+            <h2 id="more-title">Continue reading.</h2>
+          </div>
+          <a class="cta" href="{{ '/insights.html' | relative_url }}"><span class="cta-label">All insights</span><span class="cta-icon" aria-hidden="true">{% include icon-arrow.html %}</span></a>
+        </div>
+        <div class="article-grid">
+          {%- for p in others limit: 3 %}
+          {% include article-card.html post=p reveal=true %}
+          {%- endfor %}
+        </div>
+      </div>
+    </section>
+    {%- endif %}

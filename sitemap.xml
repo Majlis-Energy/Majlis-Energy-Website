@@ -1,8 +1,14 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.majlisenergy.com/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://www.majlisenergy.com/about.html</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://www.majlisenergy.com/services.html</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://www.majlisenergy.com/team.html</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://www.majlisenergy.com/insights.html</loc><lastmod>2026-10-24</lastmod></url>
+{%- assign pages = "/,/about.html,/services.html,/team.html,/insights.html" | split: "," %}
+{%- for path in pages %}
+  <url><loc>{{ site.url }}{{ path }}</loc><lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod></url>
+{%- endfor %}
+{%- for post in site.posts %}
+  <url><loc>{{ site.url }}{{ post.url }}</loc><lastmod>{{ post.last_modified_at | default: post.date | date: "%Y-%m-%d" }}</lastmod></url>
+{%- endfor %}
 </urlset>

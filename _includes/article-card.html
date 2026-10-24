@@ -1,0 +1,21 @@
+{%- comment -%}
+  Insight card. Pass either post=<a post> (an article published on this site)
+  or external=<an entry from _data/external_insights.yml>.
+{%- endcomment -%}
+{%- if include.post -%}
+  {%- assign item = include.post -%}
+  {%- assign href = item.url | relative_url -%}
+  {%- capture meta %}{{ item.date | date: "%b %Y" }}{% endcapture -%}
+  {%- assign is_external = false -%}
+{%- else -%}
+  {%- assign item = include.external -%}
+  {%- assign href = item.url -%}
+  {%- assign meta = item.publisher -%}
+  {%- assign is_external = true -%}
+{%- endif %}
+<article class="article-card" data-category="{{ item.topic | slugify }}"{% if include.reveal %} data-reveal{% endif %}>
+  <div class="article-meta"><span>{{ item.topic }}</span><span>{{ meta }}</span></div>
+  <h3><a href="{{ href }}"{% if is_external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}{% if is_external %}<span class="visually-hidden"> (on {{ item.publisher }}, opens in new tab)</span>{% endif %}</a></h3>
+  <p>{{ item.summary }}</p>
+  <div class="article-foot"><span>{% if is_external %}Read on {{ item.publisher }}{% else %}Read article{% endif %}</span><span class="cta-icon" aria-hidden="true">{% if is_external %}{% include icon-external.html %}{% else %}{% include icon-arrow.html %}{% endif %}</span></div>
+</article>

@@ -1,0 +1,94 @@
+# Pages CMS configuration (https://pagescms.org): a browser editor for this repository.
+# Saving in the editor commits to GitHub, and GitHub Pages rebuilds the site.
+
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  - name: insights
+    label: Insights articles
+    type: collection
+    path: _posts
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, topic, published]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Publish date
+        type: date
+        required: true
+        description: A future date keeps the article hidden until the site next rebuilds after that date.
+      - name: published
+        label: Published
+        type: boolean
+        default: true
+        description: Untick to save as a private draft.
+      - name: topic
+        label: Topic
+        type: select
+        required: true
+        options:
+          values:
+            - Circular economy
+            - Resource recovery
+            - Technology evaluation
+            - Energy transition
+            - Commercial structuring
+            - Project finance
+            - Project development
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+        description: One or two sentences. Shown on article cards and used as the search description.
+      - name: author
+        label: Author
+        type: string
+        default: Francis Akpata
+      - name: image
+        label: Cover image (optional)
+        type: image
+      - name: image_alt
+        label: Cover image description
+        type: string
+        description: Describe what the image shows, for screen readers.
+      - name: pdf
+        label: PDF download (optional)
+        type: file
+      - name: body
+        label: Article
+        type: rich-text
+
+  - name: external
+    label: Articles published elsewhere
+    type: file
+    path: _data/external_insights.yml
+    list: true
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: url
+        label: Link
+        type: string
+        required: true
+      - name: topic
+        label: Topic
+        type: string
+      - name: publisher
+        label: Publisher
+        type: string
+      - name: summary
+        label: Summary
+        type: text

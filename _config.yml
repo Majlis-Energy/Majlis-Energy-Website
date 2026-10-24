@@ -1,0 +1,38 @@
+# Majlis Energy — Jekyll configuration (built automatically by GitHub Pages).
+
+title: Majlis Energy
+description: Independent project development and technical advisory for energy and circular infrastructure.
+
+# Production address, used for canonical, Open Graph and sitemap URLs.
+url: "https://www.majlisenergy.com"
+
+# Path prefix for the github.io preview. At domain cutover change this to "".
+baseurl: "/majlis-energy-website"
+
+timezone: Europe/London
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Scheduled posts (future dates) stay hidden until the next build after their date.
+future: false
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      permalink: /insights/:title/
+      nav: insights.html
+      author: Francis Akpata
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - context/
+  - .pages.yml
+  - vendor/
+  - .claude/

@@ -1,0 +1,25 @@
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="Majlis Energy home">
+        <img src="{{ '/assets/images/logo-mark.png' | relative_url }}" width="99" height="61" alt="">
+        <span class="brand-name">Majlis <span>Energy</span></span>
+      </a>
+      <nav id="main-navigation" class="site-nav" aria-label="Main navigation">
+        <ul>
+          {%- assign links = "about.html|Who We Are,services.html|Services,index.html#projects|Projects,team.html|Team,insights.html|Insights" | split: "," -%}
+          {%- for link in links -%}
+          {%- assign parts = link | split: "|" %}
+          <li><a href="{{ parts[0] | prepend: '/' | relative_url }}"{% if page.nav == parts[0] %} aria-current="{% if page.layout == 'post' %}true{% else %}page{% endif %}"{% endif %}>{{ parts[1] }}</a></li>
+          {%- endfor %}
+        </ul>
+        <a class="nav-cta" href="{{ '/index.html#contact' | relative_url }}">Contact Us</a>
+        <p class="menu-meta">Enquiries: <a href="mailto:info@majlisenergy.com">info@majlisenergy.com</a></p>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" hidden>
+        <span class="menu-toggle-label">Menu</span>
+        <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </header>

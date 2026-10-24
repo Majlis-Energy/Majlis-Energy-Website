@@ -1,6 +1,6 @@
 # Majlis Energy website
 
-Static HTML/CSS/JS site for Majlis Energy. There is no build step and nothing to install. Every page is a plain `.html` file at the repository root, ready for GitHub Pages.
+Jekyll site for Majlis Energy. GitHub Pages builds it automatically on every push to `main`; nothing needs to be installed to publish.
 
 > This repository is public if the GitHub repo is public. The `context/` folder (client briefs and review documents) is excluded by `.gitignore` and must never be committed or uploaded.
 
@@ -8,47 +8,76 @@ Static HTML/CSS/JS site for Majlis Energy. There is no build step and nothing to
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Home: hero, who we are, why Majlis, how we work, services, current focus, projects (`#projects`), team, insights, contact (`#contact`) |
-| `about.html` | Who We Are: positioning, what we do and do not do, 2018–2026 timeline |
-| `services.html` | Four service areas, regulated-advice disclaimer, engagement models |
-| `team.html` | Leadership team, Francis and Michel profiles, organisation |
-| `insights.html` | Featured white paper and the article library, with topic filters |
-| `404.html` | Not-found page served by GitHub Pages (uses root-absolute paths) |
+| `index.html` | Home: hero, who we are, why Majlis, how we work, services, current focus, projects (`#projects`), team, latest insights, contact (`#contact`) |
+| `about.html`, `services.html`, `team.html` | Inner pages |
+| `insights.html` | Featured white paper, then every article with topic filters |
+| `_posts/` | **Insights articles**, one Markdown file each, named `YYYY-MM-DD-title.md`. Each becomes a page at `/insights/title/` |
+| `_data/external_insights.yml` | Articles published on other sites (Knowledge Ridge, The EIC), listed after the on-site articles |
+| `_layouts/default.html` | Page shell: `<head>`, header, footer |
+| `_layouts/post.html` | Article page template |
+| `_includes/` | Header, footer, article card and icons, shared by every page |
+| `_config.yml` | Site settings, including `baseurl` (see domain cutover below) |
+| `.pages.yml` | Configuration for the Pages CMS browser editor |
 | `assets/css/styles.css` | All styles. Design tokens (colours, fonts, spacing) are at the top in `:root` |
 | `assets/js/main.js` | Header state, mobile menu, scroll reveals, hero line animation, Insights filters |
-| `assets/images/` | `logo-mark.png` (transparent logo used on the site), `logo.png` (original), `offshore.*` (generic industrial photo) |
-| `articles/` | Majlis-hosted article PDFs |
+| `assets/images/` | Logo and site photography |
+| `assets/uploads/` | Images and files uploaded for articles |
+| `articles/` | Original article PDFs |
 | `flexcollect-sep25.pdf`, `assets/images/crude-oil-to-plastic-and-back-oct25.pdf` | Copies kept at the old site's PDF addresses so existing links keep working |
-| `robots.txt`, `sitemap.xml` | Search-engine files |
-| `.nojekyll` | Tells GitHub Pages to serve files as-is |
+| `404.html`, `robots.txt`, `sitemap.xml` | Not-found page and search-engine files (the sitemap lists articles automatically) |
 
-Shared header and footer markup is repeated in each page. When you change navigation, contact details or the footer, update all six HTML files.
+## Publishing insights
+
+New articles appear automatically on the Insights page and, if among the three newest, on the homepage.
+
+**In the browser (recommended for Francis):** sign in at [app.pagescms.org](https://app.pagescms.org) with the GitHub account that has access to this repository and open it. **Insights articles** lists every article; **Add an entry** opens a form with title, date, topic, summary, optional cover image and PDF, and the article body. Untick **Published** to keep a draft private. Saving commits to GitHub and the site updates within a couple of minutes.
+
+**By hand:** add a Markdown file to `_posts/` named `YYYY-MM-DD-short-title.md`:
+
+```markdown
+---
+title: "Article title"
+date: 2026-11-01
+topic: Project finance
+summary: "One or two sentences for the card and search results."
+pdf: /articles/optional-file.pdf   # optional
+---
+
+Article text in Markdown. Use ## for section headings.
+```
+
+Notes:
+- A post with `published: false` is not built, so drafts stay private.
+- A post dated in the future is hidden until the site next rebuilds after that date. GitHub Pages rebuilds on each push, so a scheduled post goes live with the first change made after its date.
+- Images go in `assets/uploads/` and are referenced as `/assets/uploads/file.jpg`.
 
 ## Preview locally
 
+GitHub Pages builds the site itself, so a local preview is optional. With Docker:
+
 ```bash
-python3 -m http.server 8765
+docker run --rm -p 4000:4000 -v "$PWD":/srv/site -w /srv/site ruby:3.3-slim bash -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
 
-Then open http://localhost:8765.
+Then open http://localhost:4000/majlis-energy-website/.
 
-## Common edits
+## Other common edits
 
-- **Add an article:** copy one `<article class="article-card">` block in `insights.html`, change the category label, title, link and summary, and set `data-category` to one of the filter values (`circular-economy`, `resource-recovery`, `technology-evaluation`, `energy-transition`, `commercial-structuring`). Put Majlis-hosted PDFs in `articles/`. The homepage shows three articles; edit that block in `index.html` separately.
 - **Featured white paper:** when the approved PDF is ready, save it as `publications/bankable-recycling-infrastructure.pdf` and add the download link where the comment in `insights.html` indicates.
 - **Team photos:** replace each `<div class="person-portrait"><span>XX</span></div>` with an `<img>` of a matched, approved headshot (4:5 crop).
 - **Project status:** edit the `project-status` text in the `#projects` section of `index.html`. Use only the approved labels: Research & Evaluation, Under Development, Advisory Engagement, Commercial Discussions, Engineering Phase, Investment Preparation.
+- **Navigation, contact details, footer:** edit `_includes/header.html` and `_includes/footer.html` once; every page updates.
 
 ## Publish on GitHub Pages
 
 1. Create a GitHub repository (for example `majlis-energy-website`) and push this folder to the `main` branch. Check that `context/` is not included.
 2. In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, branch `main`, folder `/ (root)`, and save.
-3. Wait for the first deployment. The site is then available at `https://<your-username>.github.io/<repo-name>/`. The 404 page uses root paths, so its styling only appears once the custom domain is active.
+3. Wait for the first deployment. The site is then available at `https://<your-username>.github.io/<repo-name>/`.
 4. Recommended: verify the domain under your GitHub account **Settings → Pages → Add a domain** before changing DNS. This stops anyone else claiming the domain on GitHub.
 
 ## Connect the UK2 domain
 
-There is deliberately no `CNAME` file yet, so the site can be reviewed at the github.io address first (with a `CNAME` present, GitHub redirects that address to the custom domain, which still serves the old site). At cutover, add the domain in **Settings → Pages → Custom domain** (`www.majlisenergy.com`); GitHub then commits a `CNAME` file for you. If the site should use a different domain, also update the canonical/Open Graph/sitemap URLs in each page.
+There is deliberately no `CNAME` file yet, so the site can be reviewed at the github.io address first (with a `CNAME` present, GitHub redirects that address to the custom domain, which still serves the old site). At cutover, first change `baseurl` in `_config.yml` to `""` and push, then add the domain in **Settings → Pages → Custom domain** (`www.majlisenergy.com`); GitHub then commits a `CNAME` file for you. If the site should use a different domain, also update `url` in `_config.yml`.
 
 In the UK2 control panel, open DNS management for the domain and edit the records there. **Do not change the nameservers**, and **do not touch the MX, SPF/TXT, DKIM or other mail records**: they keep `info@majlisenergy.com` working.
 

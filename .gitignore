@@ -2,3 +2,8 @@
 context/
 .claude/
 .DS_Store
+
+# Jekyll build output and local gem lock
+_site/
+Gemfile.lock
+.jekyll-cache/
