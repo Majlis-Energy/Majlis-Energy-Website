@@ -1,0 +1,4 @@
+# Private client material and local tooling: never publish.
+context/
+.claude/
+.DS_Store
