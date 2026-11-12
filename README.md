@@ -30,7 +30,7 @@ Jekyll site for Majlis Energy. GitHub Pages builds it automatically on every pus
 
 New articles appear automatically on the Insights page and, if among the three newest, on the homepage.
 
-**In the browser (recommended for Francis):** sign in at [app.pagescms.org](https://app.pagescms.org) with the GitHub account that has access to this repository and open it. **Insights articles** lists every article; **Add an entry** opens a form with title, date, topic, summary, optional cover image and PDF, and the article body. Untick **Published** to keep a draft private. Saving commits to GitHub and the site updates within a couple of minutes.
+**In the browser (recommended for Francis):** sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has write access to `Majlis-Energy/Majlis-Energy-Website` and open the repository. The first time, an owner of the Majlis-Energy organisation must approve the Pages CMS GitHub app for it. **Insights articles** lists every article; **Add an entry** opens a form with title, date, topic, summary, optional cover image and PDF, and the article body. Untick **Published** to keep a draft private. Saving commits to GitHub and the site updates within a couple of minutes.
 
 **By hand:** add a Markdown file to `_posts/` named `YYYY-MM-DD-short-title.md`:
 
@@ -59,7 +59,7 @@ GitHub Pages builds the site itself, so a local preview is optional. With Docker
 docker run --rm -p 4000:4000 -v "$PWD":/srv/site -w /srv/site ruby:3.3-slim bash -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
 
-Then open http://localhost:4000/majlis-energy-website/.
+Then open http://localhost:4000/Majlis-Energy-Website/.
 
 ## Other common edits
 
@@ -70,10 +70,12 @@ Then open http://localhost:4000/majlis-energy-website/.
 
 ## Publish on GitHub Pages
 
-1. Create a GitHub repository (for example `majlis-energy-website`) and push this folder to the `main` branch. Check that `context/` is not included.
-2. In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, branch `main`, folder `/ (root)`, and save.
-3. Wait for the first deployment. The site is then available at `https://<your-username>.github.io/<repo-name>/`.
-4. Recommended: verify the domain under your GitHub account **Settings → Pages → Add a domain** before changing DNS. This stops anyone else claiming the domain on GitHub.
+The site is published from **`Majlis-Energy/Majlis-Energy-Website`**, branch `main`. These steps need an **owner/admin** of the Majlis-Energy organisation:
+
+1. **Visibility or plan:** the repository is private. GitHub Pages works on a private repository only if the organisation is on a paid plan (GitHub Team or Enterprise). On the free plan, make the repository public (**Settings → General → Danger Zone → Change visibility**). The published website is public either way; `context/` is never committed.
+2. **Turn on Pages:** **Settings → Pages → Build and deployment → Deploy from a branch**, branch `main`, folder `/ (root)`, then save.
+3. Wait for the first deployment (a couple of minutes). The site is then at `https://majlis-energy.github.io/Majlis-Energy-Website/`, which matches `baseurl` in `_config.yml`.
+4. Recommended: verify the domain under the organisation's **Settings → Pages → Add a domain** before changing DNS. This stops anyone else claiming the domain on GitHub.
 
 ## Connect the UK2 domain
 
@@ -90,7 +92,7 @@ Back up (screenshot or export) the current DNS records first, then:
 | `A` | `@` | `185.199.110.153` |
 | `A` | `@` | `185.199.111.153` |
 | `AAAA` (optional) | `@` | `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153` |
-| `CNAME` | `www` | `<your-username>.github.io` |
+| `CNAME` | `www` | `majlis-energy.github.io` |
 
 Remove any existing `A`/`AAAA` records on `@` and any existing `www` record that point at the old host, otherwise traffic is split between the old and new sites.
 

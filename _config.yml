@@ -6,8 +6,9 @@ description: Independent project development and technical advisory for energy a
 # Production address, used for canonical, Open Graph and sitemap URLs.
 url: "https://www.majlisenergy.com"
 
-# Path prefix for the github.io preview. At domain cutover change this to "".
-baseurl: "/majlis-energy-website"
+# Path prefix for the github.io address (matches the repository name, case included).
+# At domain cutover change this to "".
+baseurl: "/Majlis-Energy-Website"
 
 timezone: Europe/London
 markdown: kramdown
