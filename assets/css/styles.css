@@ -867,6 +867,9 @@ html.menu-locked { overflow: hidden; }
   background: var(--black-3);
 }
 
+/* Four cards + note: the note fills the rest of the last row. */
+.project-note { grid-column: span 2; }
+
 .project-note p { margin: 0 0 24px; color: var(--on-dark-muted); font-size: 0.9375rem; }
 
 /* ---------- People ---------- */
@@ -1451,7 +1454,7 @@ html.menu-locked { overflow: hidden; }
   .engagements li { grid-template-columns: 48px minmax(0, 1fr); }
 
   .project-card,
-  .project-note { min-height: 0; }
+  .project-note { min-height: 0; grid-column: auto; }
   .project-card .num { margin-bottom: 32px; }
 
   .article-card { min-height: 0; }
