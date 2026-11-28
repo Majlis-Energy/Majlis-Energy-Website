@@ -880,24 +880,19 @@ html.menu-locked { overflow: hidden; }
   gap: 48px clamp(16px, 2vw, 28px);
 }
 
-.person-portrait {
+.person {
   position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 5;
-  margin-bottom: 24px;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 20% 0%, #3a3a38 0%, #161616 55%, #0a0a0a 100%);
-  color: var(--white);
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
 }
 
-.person-portrait::after {
+/* Accent rule draws across the top border on hover. */
+.person::before {
   content: "";
   position: absolute;
+  top: -1px;
   left: 0;
   right: 0;
-  bottom: 0;
   height: 2px;
   background: var(--accent);
   transform: scaleX(0);
@@ -905,14 +900,7 @@ html.menu-locked { overflow: hidden; }
   transition: transform 0.5s var(--ease);
 }
 
-.person:hover .person-portrait::after { transform: scaleX(1); }
-
-.person-portrait span {
-  font-family: var(--serif);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 300;
-  letter-spacing: 0.02em;
-}
+.person:hover::before { transform: scaleX(1); }
 
 .person h3 { margin-bottom: 6px; font-size: 1.35rem; }
 
@@ -938,7 +926,6 @@ html.menu-locked { overflow: hidden; }
 
 .profile:last-child { padding-bottom: 0; }
 
-.profile-side .person-portrait { max-width: 320px; }
 .profile-side .role { margin-bottom: 8px; }
 .profile-side h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
 .profile .lead { margin-bottom: 32px; }
@@ -1403,7 +1390,6 @@ html.menu-locked { overflow: hidden; }
 
   .featured-cover { min-height: 300px; }
 
-  .profile-side .person-portrait { max-width: 240px; }
 }
 
 @media (max-width: 639px) {
@@ -1425,17 +1411,7 @@ html.menu-locked { overflow: hidden; }
   .process { grid-template-columns: minmax(0, 1fr); }
 
   .people-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .person {
-    display: grid;
-    grid-template-columns: 88px minmax(0, 1fr);
-    gap: 0 20px;
-    align-content: start;
-    padding: 24px 0;
-    border-top: 1px solid var(--line);
-  }
-  .person > :not(.person-portrait) { grid-column: 2; }
-  .person-portrait { grid-column: 1; grid-row: 1 / span 3; aspect-ratio: 1; margin: 0; }
-  .person-portrait span { font-size: 1.75rem; }
+  .person { padding: 24px 0; border-top-color: var(--line); }
   .person h3 { font-size: 1.25rem; }
   .person .role { margin-bottom: 10px; }
 
